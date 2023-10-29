@@ -70,12 +70,14 @@ void before_task_exit () {
 void after_task_exit () {
 
     // put your customization here
+    printf("Task %d exit: execution time %d ms, processor time: %d ms, %d activations\n", taskExec->id, systemTime - taskExec->start_time ,taskExec->running_time , taskExec->task_activations);
 #ifdef DEBUG
     printf("\ntask_exit - AFTER- [%d]", taskExec->id);
 #endif
 }
 
 void before_task_switch ( task_t *task ) {
+    task->task_activations += 1;
     // put your customization here
 #ifdef DEBUG
     printf("\ntask_switch - BEFORE - [%d -> %d]", taskExec->id, task->id);
